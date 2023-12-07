@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <h1>
+        <center>GURU CODE HUB</center>
+    </h1>
+    <h1>
+        <center>ML 10</center>
+    </h1>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Copy to Clipboard</title>
+</head>
+<body>
+
+    <div>
+        <h3>Section 1</h3>
+        <textarea id="copyText1" rows="4" cols="50">
+            import tensorflow as tf 
+import numpy as np 
+import mat 
+plotlib.pyplot as plt 
+import math, random  
+             </textarea>
+        <button onclick="copyToClipboard('copyText1')">Copy Text</button>
+    </div>
+
+    <div>
+        <h3>Section 2</h3>
+        <textarea id="copyText2" rows="4" cols="50">
+            np.random.seed(1000) 
+            function_to_learn = lambda x: np.cos(x) + 0.1*np.random.randn(*x.shape) 
+            layer_1_neurons = 10 
+            NUM_points = 1000 
+             
+            #Train the parameters of hidden layer 
+            batch_size = 100 
+            NUM_EPOCHS = 1500 
+             
+            all_x = np.float32(np.random.uniform(-2*math.pi, 2*math.pi, (1, NUM_points))).T 
+             np.random.shuffle(all_x)    </textarea>
+        <button onclick="copyToClipboard('copyText2')">Copy Text</button>
+    </div>
+
+    <div>
+        <h3>Section 3</h3>
+        <textarea id="copyText3" rows="4" cols="50">
+            train_size = int(900) 
+#Train the first 700 points in the set 
+ x_training = all_x[:train_size] 
+y_training = function_to_learn(x_training) 
+ 
+#Training the last 300 points in the given set x_validation = all_x[train_size:] 
+y_validation = function_to_learn(x_validation) 
+</textarea>
+        <button onclick="copyToClipboard('copyText3')">Copy Text</button>
+    </div>
+
+
+    <div>
+        <h3>Section 4</h3>
+        <textarea id="copyText4" rows="4" cols="50">
+            plt.figure(1) 
+            plt.scatter(x_training, y_training, c = 'blue', label = 'train') 
+            plt.scatter(x_validation, y_validation, c = 'pink', label = 'validation') 
+            plt.legend() 
+            plt.show() 
+             
+            X = tf.placeholder(tf.float32, [None, 1], name = "X") 
+            Y = tf.placeholder(tf.float32, [None, 1], name = "Y") 
+             
+            #first layer 
+            #Number of neurons = 10 
+            w_h = tf.Variable( 
+            
+             tf.random_uniform([1, layer_1_neurons],\ minval = -1, maxval = 1, dtype = tf.float32)) 
+            b_h = tf.Variable(tf.zeros([1, layer_1_neurons], dtype = tf.float32)) 
+            h = tf.nn.sigmoid(tf.matmul(X, w_h) + b_h) </textarea>
+        <button onclick="copyToClipboard('copyText4')">Copy Text</button>
+    </div>
+
+    <div>
+        <h3>Section 5</h3>
+        <textarea id="copyText5" rows="4" cols="50">
+            #output layer 
+            #Number of neurons = 10 
+            w_o = tf.Variable( 
+             tf.random_uniform([layer_1_neurons, 1],\ minval = -1, maxval = 1, dtype = tf.float32)) 
+            b_o = tf.Variable(tf.zeros([1, 1], dtype = tf.float32)) 
+             
+            #building the model 
+            model = tf.matmul(h, w_o) + b_o 
+             
+            #minimize the cost function (model - Y) 
+            train_op = tf.train.AdamOptimizer().minimize(tf.nn.l2_loss(model - Y)) 
+             
+            #Starting the Learning phase 
+            sess = tf.Session() sess.run(tf.initialize_all_variables()) 
+             
+            </textarea>
+        <button onclick="copyToClipboard('copyText5')">Copy Text</button>
+    </div>
+
+
+
+    <div>
+        <h3>Section 6</h3>
+        <textarea id="copyText6" rows="4" cols="50">
+            errors = [] 
+for i in range(NUM_EPOCHS): 
+ for start, end in zip(range(0, len(x_training), batch_size),\ 
+ range(batch_size, len(x_training), batch_size)): 
+ sess.run(train_op, feed_dict = {X: x_training[start:end],\ Y: y_training[start:end]}) 
+ cost = sess.run(tf.nn.l2_loss(model - y_validation),\ feed_dict = {X:x_validation}) 
+ errors.append(cost) 
+ 
+ if i%100 == 0: 
+ print("epoch %d, cost = %g" % (i, cost)) 
+ 
+plt.plot(errors,label='MLP Function Approximation') plt.xlabel('epochs') 
+plt.ylabel('cost') 
+plt.legend() 
+plt.show()   </textarea>
+        <button onclick="copyToClipboard('copyText6')">Copy Text</button>
+    </div>
+
+
+
+
+
+
+
+    <!-- Add more sections as needed -->
+
+    <script>
+        function copyToClipboard(elementId) {
+            var copyText = document.getElementById(elementId);
+            copyText.select();
+            document.execCommand("copy");
+            alert("Text copied to clipboard: " + copyText.value);
+        }
+    </script>
+
+</body>
+</html>
